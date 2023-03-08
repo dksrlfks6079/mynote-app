@@ -1,53 +1,21 @@
-import React from "react"
+// import db from "../db/data.json"
+import { useEffect, useState } from "react"
+import Note from "../components/Note"
 
 export default function NoteList() {
+    const [notes, setNotes] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3001/notes")
+            .then((res) => res.json())
+            .then((data) => setNotes(data))
+    }, [])
+
     return (
         <ul className='list'>
-            <li className='note'>
-                <h4 className='title'>안녕하세요</h4>
-                <p>안녕하세요 1111</p>
-                <div className='bottom'>
-                    <div className='date'>2022-10-20</div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
-            <li className='note'>
-                <h4 className='title'>안녕하세요</h4>
-                <p>안녕하세요 1111</p>
-                <div className='bottom'>
-                    <div className='date'>2022-10-20</div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
-            <li className='note'>
-                <h4 className='title'>안녕하세요</h4>
-                <p>안녕하세요 1111</p>
-                <div className='bottom'>
-                    <div className='date'>2022-10-20</div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
-            <li className='note'>
-                <h4 className='title'>안녕하세요</h4>
-                <p>안녕하세요 1111</p>
-                <div className='bottom'>
-                    <div className='date'>2022-10-20</div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
-            <li className='note'>
-                <h4 className='title'>안녕하세요</h4>
-                <p>안녕하세요 1111</p>
-                <div className='bottom'>
-                    <div className='date'>2022-10-20</div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
+            {notes.map((note) => (
+                <Note note={note} key={note.id} />
+            ))}
         </ul>
     )
 }
