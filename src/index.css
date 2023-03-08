@@ -30,7 +30,7 @@ body {
 .header h1 {
     font-size: 36px;
 }
-.header .button {
+.header button {
     padding: 10px 20px;
 }
 
@@ -68,6 +68,6 @@ body {
     color: #666;
 }
 
-.note .bottom .button {
+.note .bottom button {
     margin: 0 6px;
 }
