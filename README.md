@@ -1,6 +1,6 @@
 # 리엑트 노트 앱
 
-### json server
+### git branch
 
-npm i json-server
-json-server --watch ../db/data.json --port 3001
+git brnach [name]
+git switch [name]
