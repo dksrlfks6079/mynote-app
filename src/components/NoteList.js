@@ -2,12 +2,24 @@
 import { useEffect, useState } from "react"
 import Note from "./Note"
 import { db } from "../firebase"
+import { collection, query, onSnapshot } from "firebase/firestore"
 
 export default function NoteList() {
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-        console.log(db)
+        const q = query(collection(db, "notes"))
+        const unsubscribe = onSnapshot(q, querySnapshot => {
+            const items = []
+            querySnapshot.forEach(doc => {
+                console.log(doc.data())
+                items.push({
+                    ...doc.data(),
+                    id: doc.id,
+                })
+            })
+            setNotes(items)
+        })
     }, [])
 
     return (
