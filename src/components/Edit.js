@@ -1,5 +1,7 @@
 import { useRef } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
+import { db } from "../firebase"
+import { doc, updateDoc } from "firebase/firestore"
 
 export default function Edit() {
     const titleRef = useRef()
@@ -7,28 +9,15 @@ export default function Edit() {
     const note = useLocation().state
     const nagative = useNavigate()
 
-    function onEdit(e) {
-        e.preventDefault()
-        fetch(`http://localhost:3001/notes/${note.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                ...note,
-                title: titleRef.current.value,
-                detail: detailRef.current.value,
-            }),
-        }).then(res => {
-            if (res.ok) {
-                navigte("/")
-            }
-        })
+    async function onDelete() {
+        if (window.confirm("정말 삭제하시겠습니까")) {
+            await deleteDoc(doc(db, "notes", note.id))
+        }
     }
 
     function goBack(e) {
         e.preventDefault()
-        navigte(-1)
+        navigate(-1)
     }
 
     return (
